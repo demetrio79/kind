@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-app
+  name: demo-app-dev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://github.com/demetrio79/kind.git
     targetRevision: main
-    path: apps/demo-app
+    path: apps/demo-app/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: demo-app
+    namespace: demo-app-dev
   syncPolicy:
     automated:
       prune: true

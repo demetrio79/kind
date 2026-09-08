@@ -2,18 +2,17 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: demo-app-html
-  namespace: demo-app
 data:
   index.html: |
     <!DOCTYPE html>
     <html lang="pt-BR">
     <head>
       <meta charset="UTF-8">
-      <title>Demo ArgoCD + Kind</title>
+      <title>PRODUÇÃO - Demo ArgoCD</title>
       <style>
         body {
           font-family: Arial, sans-serif;
-          background: #0f172a;
+          background: #022c22;
           color: #f8fafc;
           display: flex;
           align-items: center;
@@ -22,31 +21,34 @@ data:
           margin: 0;
         }
         .card {
-          background: #1e293b;
+          background: #064e3b;
           border-radius: 12px;
-          padding: 2rem 3rem;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+          padding: 2.5rem 3.5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
           text-align: center;
-          border: 1px solid #334155;
+          border: 2px solid #34d399;
         }
-        h1 { color: #38bdf8; margin-bottom: 0.5rem; }
-        p { color: #94a3b8; font-size: 1.1rem; }
+        h1 { color: #6ee7b7; margin-bottom: 0.5rem; }
+        p { color: #d1fae5; font-size: 1.1rem; }
         .badge {
-          background: #22c55e;
+          background: #10b981;
           color: #000;
           font-weight: bold;
-          padding: 0.3rem 0.8rem;
+          padding: 0.4rem 1rem;
           border-radius: 20px;
           display: inline-block;
           margin-top: 1rem;
+          font-size: 0.95rem;
         }
+        .host { color: #a7f3d0; margin-top: 1rem; font-size: 0.85rem; }
       </style>
     </head>
     <body>
       <div class="card">
-        <h1>🚀 GitOps com ArgoCD + Kind</h1>
-        <p>Aplicação sincronizada automaticamente pelo ArgoCD via Git!</p>
-        <span class="badge">Versão 1.0</span>
+        <h1>🚀 Ambiente de PRODUÇÃO (PRD)</h1>
+        <p>Versão estável e promovida após validação de DEV!</p>
+        <span class="badge">PRODUÇÃO (5 Réplicas)</span>
+        <div class="host">Host: prd.local</div>
       </div>
     </body>
     </html>
