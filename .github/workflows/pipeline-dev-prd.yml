@@ -48,9 +48,14 @@ jobs:
 
       - name: Smoke Test (Healthcheck HTTP)
         run: |
-          echo "Testando conectividade com o pod de DEV..."
-          STATUS_CODE=$(kubectl run curl-test --image=curlimages/curl:latest --restart=Never --rm -i --quiet -- \
-            curl -s -o /dev/null -w "%{http_code}" http://demo-app-service.demo-app-dev.svc.cluster.local)
+          echo "Iniciando port-forward para teste de conectividade..."
+          kubectl port-forward svc/demo-app-service -n demo-app-dev 8080:80 > /dev/null 2>&1 &
+          PF_PID=$!
+          sleep 3
+
+          echo "Executando Smoke Test HTTP..."
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080)
+          kill $PF_PID || true
           
           echo "Codigo HTTP retornado por DEV: $STATUS_CODE"
           if [ "$STATUS_CODE" -eq 200 ]; then
