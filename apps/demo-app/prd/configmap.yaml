@@ -8,7 +8,7 @@ data:
     <html lang="pt-BR">
     <head>
       <meta charset="UTF-8">
-      <title>PRODUÇÃO - Demo ArgoCD</title>
+      <title>PRODUÇÃO - Demo ArgoCD v2.0</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -28,8 +28,8 @@ data:
           text-align: center;
           border: 2px solid #34d399;
         }
-        h1 { color: #6ee7b7; margin-bottom: 0.5rem; }
-        p { color: #d1fae5; font-size: 1.1rem; }
+        h1 { color: #34d399; margin-bottom: 0.5rem; }
+        p { color: #f8f8f2; font-size: 1.1rem; }
         .badge {
           background: #10b981;
           color: #000;
@@ -40,14 +40,23 @@ data:
           margin-top: 1rem;
           font-size: 0.95rem;
         }
-        .host { color: #a7f3d0; margin-top: 1rem; font-size: 0.85rem; }
+        .features {
+          margin-top: 1.2rem;
+          padding: 0.8rem;
+          background: #44475a;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          color: #50fa7b;
+        }
+        .host { color: #6272a4; margin-top: 1rem; font-size: 0.85rem; }
       </style>
     </head>
     <body>
       <div class="card">
-        <h1>🚀 Ambiente de PRODUÇÃO (PRD)</h1>
-        <p>Versão estável e promovida após validação de DEV!</p>
-        <span class="badge">PRODUÇÃO (5 Réplicas)</span>
+        <h1>🛠️ Ambiente de PRODUÇÃO (PRODUÇÃO) - v2.0</h1>
+        <p>Nova funcionalidade lançada para validação na esteira!</p>
+        <span class="badge">AMBIENTE: PRODUÇÃO (Versão 2.0)</span>
+        <div class="features">✨ Novidade: Pipeline automatizada com Smoke Test e Promoção!</div>
         <div class="host">Host: prd.local</div>
       </div>
     </body>
