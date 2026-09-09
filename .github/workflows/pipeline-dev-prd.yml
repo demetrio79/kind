@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   validate-and-test-dev:
-    name: 🧪 Validar e Testar DEV
+    name: Validar e Testar DEV
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,7 +27,7 @@ jobs:
           kubectl kustomize apps/demo-app/dev/ > /dev/null
           echo "Validando manifestos de PRD..."
           kubectl kustomize apps/demo-app/prd/ > /dev/null
-          echo "✅ Sintaxe Kustomize validada com sucesso!"
+          echo "Sintaxe Kustomize validada com sucesso!"
 
       - name: Subir Cluster Kind de Teste no Runner
         uses: helm/kind-action@v1.12.0
@@ -52,16 +52,16 @@ jobs:
           STATUS_CODE=$(kubectl run curl-test --image=curlimages/curl:latest --restart=Never --rm -i --quiet -- \
             curl -s -o /dev/null -w "%{http_code}" http://demo-app-service.demo-app-dev.svc.cluster.local)
           
-          echo "Código HTTP retornado por DEV: $STATUS_CODE"
+          echo "Codigo HTTP retornado por DEV: $STATUS_CODE"
           if [ "$STATUS_CODE" -eq 200 ]; then
-            echo "✅ Smoke test aprovado! DEV está saudável (HTTP 200)."
+            echo "Smoke test aprovado! DEV esta saudavel (HTTP 200)."
           else
-            echo "❌ Smoke test falhou! Código retornado: $STATUS_CODE"
+            echo "Smoke test falhou! Codigo retornado: $STATUS_CODE"
             exit 1
           fi
 
   promote-to-prd:
-    name: 🚀 Promover para PRD
+    name: Promover para PRD
     needs: validate-and-test-dev
     runs-on: ubuntu-latest
     steps:
@@ -78,28 +78,11 @@ jobs:
           BRANCH_NAME="release/promote-to-prd-${{ github.run_number }}"
           git checkout -b "$BRANCH_NAME"
 
-          echo "Promovendo configurações de DEV para PRD..."
-          
-          python3 -c "
-with open('apps/demo-app/dev/configmap.yaml', 'r') as f:
-    dev_content = f.read()
-
-prd_content = dev_content.replace('demo-app-dev', 'demo-app-prd')
-prd_content = prd_content.replace('DEV', 'PRODUÇÃO')
-prd_content = prd_content.replace('Ambiente de Desenvolvimento', 'Ambiente de PRODUÇÃO')
-prd_content = prd_content.replace('dev.local', 'prd.local')
-prd_content = prd_content.replace('dev.172.18.0.2.nip.io', 'prd.172.18.0.2.nip.io')
-prd_content = prd_content.replace('#eab308', '#10b981')
-prd_content = prd_content.replace('#f1fa8c', '#34d399')
-prd_content = prd_content.replace('#1e1e2e', '#022c22')
-prd_content = prd_content.replace('#282a36', '#064e3b')
-
-with open('apps/demo-app/prd/configmap.yaml', 'w') as f:
-    f.write(prd_content)
-"
+          echo "Promovendo configuracoes de DEV para PRD..."
+          python3 scripts/promote.py
 
           if git diff --quiet apps/demo-app/prd/; then
-            echo "PRD já está sincronizado com a versão de DEV. Nenhuma promoção necessária."
+            echo "PRD ja esta sincronizado com a versao de DEV."
             echo "PROMOTED=false" >> $GITHUB_ENV
           else
             git add apps/demo-app/prd/
@@ -109,7 +92,7 @@ with open('apps/demo-app/prd/configmap.yaml', 'w') as f:
             echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           fi
 
-      - name: Abrir Pull Request de Promoção para PRD
+      - name: Abrir Pull Request de Promocao para PRD
         if: env.PROMOTED == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,13 +100,5 @@ with open('apps/demo-app/prd/configmap.yaml', 'w') as f:
           gh pr create \
             --base main \
             --head "${{ env.BRANCH_NAME }}" \
-            --title "🚀 [PROMOÇÃO] DEV ➔ PRD (Validado pelo Smoke Test)" \
-            --body "### 🧪 Validação Automática Concluída!
-
-          Todos os testes no ambiente de **DEV** passaram com sucesso na esteira de CI:
-          - [x] Sintaxe Kustomize validada
-          - [x] Deploy em cluster Kind efetuado
-          - [x] Pods em estado Running
-          - [x] Smoke test HTTP retornou **200 OK**
-
-          Ao aprovar e mesclar este PR, o **ArgoCD** aplicará automaticamente a nova versão no ambiente de **Produção (PRD)**."
+            --title "PROMOÇÃO: DEV para PRD (Validado)" \
+            --body "Smoke test em DEV passou com sucesso (HTTP 200). Pronto para merge em Producao."
