@@ -490,3 +490,4 @@ kind create cluster --config cluster/kind-multinode.yaml --name kind
 - O ArgoCD **não gerencia a si mesmo** via Application — os manifests em `cluster/ArgoCD/` devem ser aplicados manualmente com `kubectl apply` após (re)criar o cluster
 - O `argocd-cmd-params-cm.yaml` configura o ArgoCD em modo HTTP (`server.insecure: "true"`) para funcionar corretamente com o ingress NGINX sem TLS
 - As Applications têm `selfHeal: true` e `prune: true` — qualquer divergência entre Git e cluster é corrigida automaticamente pelo ArgoCD
+
