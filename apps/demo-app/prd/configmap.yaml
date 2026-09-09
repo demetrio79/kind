@@ -8,7 +8,7 @@ data:
     <html lang="pt-BR">
     <head>
       <meta charset="UTF-8">
-      <title>PRODUÇÃO - Demo ArgoCD v2.0</title>
+      <title>PRODUÇÃO - Demo ArgoCD v3.0</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -53,10 +53,10 @@ data:
     </head>
     <body>
       <div class="card">
-        <h1>🛠️ Ambiente de PRODUÇÃO (PRODUÇÃO) - v2.1</h1>
+        <h1>🛠️ Ambiente de PRODUÇÃO (PRODUÇÃO) - v3.0</h1>
         <p>Nova funcionalidade lançada para validação na esteira!</p>
-        <span class="badge">AMBIENTE: PRODUÇÃO (Versão 2.0)</span>
-        <div class="features">✨ Novidade: Pipeline automatizada com Smoke Test e Promoção!</div>
+        <span class="badge">AMBIENTE: PRODUÇÃO (Versão 3.0)</span>
+        <div class="features">🚀 Novidade: Documentação completa e pipeline validada!</div>
         <div class="host">Host: prd.local</div>
       </div>
     </body>
