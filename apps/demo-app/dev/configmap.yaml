@@ -8,7 +8,7 @@ data:
     <html lang="pt-BR">
     <head>
       <meta charset="UTF-8">
-      <title>DEV - Demo ArgoCD</title>
+      <title>DEV - Demo ArgoCD v2.0</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -40,14 +40,23 @@ data:
           margin-top: 1rem;
           font-size: 0.95rem;
         }
+        .features {
+          margin-top: 1.2rem;
+          padding: 0.8rem;
+          background: #44475a;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          color: #50fa7b;
+        }
         .host { color: #6272a4; margin-top: 1rem; font-size: 0.85rem; }
       </style>
     </head>
     <body>
       <div class="card">
-        <h1>🛠️ Ambiente de Desenvolvimento (DEV)</h1>
-        <p>Aplicação em teste contínuo via ArgoCD e Ingress</p>
-        <span class="badge">AMBIENTE: DEV (2 Réplicas)</span>
+        <h1>🛠️ Ambiente de Desenvolvimento (DEV) - v2.0</h1>
+        <p>Nova funcionalidade lançada para validação na esteira!</p>
+        <span class="badge">AMBIENTE: DEV (Versão 2.0)</span>
+        <div class="features">✨ Novidade: Pipeline automatizada com Smoke Test e Promoção!</div>
         <div class="host">Host: dev.local</div>
       </div>
     </body>
